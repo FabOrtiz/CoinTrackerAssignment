@@ -39,6 +39,4 @@ class CoinListFragment : Fragment() {
         })
         return  binding.root
     }
-
-
 }

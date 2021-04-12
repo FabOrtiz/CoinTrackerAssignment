@@ -4,6 +4,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import ca.burchill.cointracker.domain.Coin
 import ca.burchill.cointracker.network.NetworkCoin
 import com.bumptech.glide.Glide
 
@@ -20,28 +21,28 @@ fun bindImage(imgView: ImageView, coinId: Int?) {
 }
 
 @BindingAdapter ("coinName")
-fun TextView.setName(coin: NetworkCoin?) {
+fun TextView.setName(coin: Coin?) {
     coin?.let {
         text = "${coin.name} (${coin.symbol})"
     }
 }
 
 @BindingAdapter ("coinSummary")
-fun TextView.setSummary(coin: NetworkCoin?) {
+fun TextView.setSummary(coin: Coin?) {
     coin?.let {
-        var tmp = "Price: $%f \n".format(coin.quote.USD.price)
-        tmp += "Market Cap: $%f\n".format(coin.quote.USD.market_cap)
-        tmp += "Volume/24h: $%f\n".format(coin.quote.USD.volume_24h)
+        var tmp = "Price: $%f \n".format(coin.price)
+        tmp += "Market Cap: $%f\n".format(coin.market_cap)
+        tmp += "Volume/24h: $%f\n".format(coin.volume_24h)
         text = tmp
     }
 }
 
 @BindingAdapter ("priceChanges")
-fun TextView.setChange(coin: NetworkCoin?) {
+fun TextView.setChange(coin: Coin?) {
     coin?.let {
-        var tmp  = "1h:%.2f".format(coin.quote.USD.percent_change_1h)    + "%"
-        tmp += "    24h:%.2f".format(coin.quote.USD.percent_change_24h)  + "%"
-        tmp += "    7d:%.2f".format(coin.quote.USD.percent_change_7d)    + "%"
+        var tmp  = "1h:%.2f".format(coin.percent_change_1h)    + "%"
+        tmp += "    24h:%.2f".format(coin.percent_change_24h)  + "%"
+        tmp += "    7d:%.2f".format(coin.percent_change_7d)    + "%"
         text = tmp
     }
 }
